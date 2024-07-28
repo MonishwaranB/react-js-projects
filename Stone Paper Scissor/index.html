@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpS</title>
+  <style>
+    button{
+      font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+      width: 200px; height: 50px;
+      background-color:violet;
+      border-radius: 16px;
+      border-width: 5px;
+      border-color:blue;
+      margin: 15px;
+      font-size: 175%;
+      
+    }
+    @keyframes color {
+  0%   { background: #33CCCC; }
+  20%  { background: #33CC36; }
+  40%  { background: #B8CC33; }
+  60%  { background: #FCCA00; }
+  80%  { background: #33CC36; }
+  100% { background: #33CCCC; }
+}
+
+body {
+  background: #33CCCC; /* Fallback */
+  animation: color 3s infinite linear;
+  text-align: center;
+  padding: 2em;
+}
+h1 {
+  text-shadow: 1px 1px #ff0000;
+  text-align: center;
+  font-size: 2.5em;
+  color: white;
+}
+  </style>
+</head>
+<body class="bo" style="; background-color: bisque; text-align: center;  font-family:fantasy; padding: 5%;">
+  <h1 style="color: black;">STONE PAPER SCISSORS</h1>
+  <div style="padding: 12%;">
+  <button class="sto">
+      Stone
+  </button>
+  <button class="pap">
+      Paper
+  </button>
+  <button class="sci">
+      Scissors
+  </button>
+
+  <button class="bu" onclick="
+  score.wins=0;
+  score.loss=0;
+  score.tie=0;
+  document.querySelector('.opt').innerHTML=` Score Resetted <br> Wins = ${score.wins} , Loss = ${score.loss} , Tie = ${score.tie}`;
+  localStorage.removeItem('score');
+  "> 
+    Reset
+  </button>
+
+</div>
+<p class="opt"></p>
+<script>
+  let score=JSON.parse(localStorage.getItem('score')) || { wins: 0, loss: 0, tie: 0 };
+
+  document.querySelector('.sto').addEventListener('click',function(){play('Stone')});
+  document.querySelector('.pap').addEventListener('click',function(){play('Paper')});
+  document.querySelector('.sci').addEventListener('click',function(){play('Scissors')});
+
+  function play(pm){
+    const cm=assign();
+    let Match='';
+    if(pm=='Scissors'){
+      if(cm=='Scissors')
+      { 
+      Match = 'Tie'
+      }
+      else if(cm=='Paper'){
+      
+      Match = 'You Win';
+      }
+      else if(cm=='Stone'){
+      Match = 'You Loss';
+      }
+    }
+    if(pm=='Paper'){
+
+      if(cm=='Paper')
+      {  
+      Match = 'Tie';
+      }
+      else if(cm=='Scissors'){
+      Match = 'You Loss';
+      }
+      else if(cm=='Stone'){
+          Match = 'You Win';
+      }
+    }
+
+    if(pm=='Stone'){
+      if(cm=='Stone')
+      { 
+      Match = 'Tie';
+      }
+      else if(cm=='Paper'){
+      
+      Match = 'You Loss';
+      }
+      else if(cm=='Scissors'){
+
+      Match = 'You Win';
+      }
+    }
+
+    if(Match=='You Win')
+    {
+      score.wins+=1
+    }
+
+    else if(Match=='You Loss'){
+      score.loss+=1;
+    }
+    else if(Match=='Tie'){
+      score.tie+=1;
+    }
+      localStorage.setItem('score',JSON.stringify(score))
+
+    document.querySelector('.opt').innerHTML=`You picked ${pm}. Computer picked ${cm}.Result is ${Match}.
+          wins = ${score.wins} , loss = ${score.loss} , tie = ${score.tie}
+          `
+  }
+
+
+  function assign(){
+    const ranNo=Math.random();
+      ym='Scissors';
+      if(ranNo>=0 && ranNo<1/3)
+      {
+        cm='Stone'
+      }
+      else if(ranNo>=1/3 && ranNo<2/3)
+      {
+        cm='Paper'
+      }
+      else if(ranNo>=2/3 && ranNo<=1)
+      { 
+        cm='Scissors';
+      } 
+
+      return cm;  
+
+  }
+</script>
+</body>
+</html>

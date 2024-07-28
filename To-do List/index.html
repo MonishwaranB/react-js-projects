@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-do List</title>
+  <style>
+    .style {
+      font-family: Arial, Helvetica, sans-serif;
+      display: grid;
+      grid-template-columns: 180px 150px;
+      margin-top: 10px;
+    }
+    .sty, .ip, .style {
+      margin-top: 10px;
+      border-radius: 2px;
+      border-width: 5%;
+      padding: 5px;
+      border-color: brown;
+      border-radius: 12px;
+    }
+    .sty {
+      background-color: brown;
+      color: white;
+    }
+  </style>
+</head>
+<body style="background-color: wheat;">
+  <h1 style="margin-top: 2%; font-family: Verdana, Geneva, Tahoma, sans-serif;">To-do List</h1>
+  <input class="ip" type="text" placeholder="Enter text" style="margin-top: 1%; border-color: brown;">
+  <button style="border-radius: 10px; border-color: brown; width: 10%; background-color: brown; color: azure;" class="ip" onclick="add();">Add</button>
+  <div class="output style"></div>
+  <script>
+    let input = [];
+
+    function add() {
+      let b = document.querySelector('input').value;
+
+      if (b.trim() === "") {
+        alert("Enter any values");
+        return;
+      }
+
+      input.push(b);
+      console.log(input);
+      all();
+      document.querySelector('input').value = '';
+    }
+
+    function all() {
+      let print = '';
+      for (let i = 0; i < input.length; i++) {
+        console.log(input[i]);
+        let list = input[i];
+        print += `<div class="style" style="width: 10%; border-color: brown;">${list}</div>
+                  <div><button onclick="remove(${i})" class="sty">Delete</button></div>`;
+      }
+      document.querySelector('.output').innerHTML = print;
+    }
+
+    function remove(index) {
+      input.splice(index, 1);
+      all();
+    }
+  </script>
+</body>
+</html>
